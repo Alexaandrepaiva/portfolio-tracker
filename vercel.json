@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/admin/ingestion/fundamentus/run?mode=incremental",
+      "schedule": "0 10 * * *"
+    }
+  ]
+}

@@ -67,6 +67,13 @@ Do the correct procedure to merge a GitHub pull request from the current branch 
 
 - `gh pr merge <pr-number> --merge --delete-branch`
 
+7. Sync linked issues to Kanban `Done` (mandatory for completed work).
+
+- For each issue in `closingIssuesReferences`:
+  - `bash .agents/skills/issue/scripts/edit_issue_project_fields.sh --issue <issue-number> --status Done`
+  - `gh issue close <issue-number> --comment "Closing automatically after PR merge."` (only if still open)
+  - `gh issue view <issue-number> --json state,projectItems --jq '.'` and keep evidence for output.
+
 ## Output Rules
 
 Return exactly this structure:
@@ -81,7 +88,7 @@ Return exactly this structure:
 **Linked Closing Issues**
 
 - If linked issues exist, list each one as:
-  - `#<issue-number> - <issue-title>`
+  - `#<issue-number> - <issue-title> (state: <state>, status: <project-status>)`
 - If there are no linked issues, write:
   - `No linked closing issues`
 

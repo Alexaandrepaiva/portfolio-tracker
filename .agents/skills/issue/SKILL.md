@@ -25,6 +25,11 @@ Provide a safe flow for creating, editing, and fetching issues with `gh`, includ
   - `status` (project `Status` field)
   - `lane` (project `Execution Lane` field)
 - Support relationship operations via GraphQL mutations (`blocked_by`, `blocks`, `parent`, removal variants).
+- Closing/finish policy (mandatory):
+  - Whenever an issue is completed in execution, always update project `Status` to `Done`.
+  - Always verify the final project state with `gh issue view <number> --json projectItems,state`.
+  - If the issue is complete and still open, close it with `gh issue close <number>`.
+  - Report the final `state` + project `Status` in the delivery summary.
 
 ## Defaults
 
@@ -68,6 +73,12 @@ gh issue edit <number> --title "<new-title>" --add-label "<label>" --remove-labe
   --issue <number> \
   ${STATUS_VALUE:+--status "$STATUS_VALUE"} \
   ${LANE_VALUE:+--lane "$LANE_VALUE"}
+```
+
+Verify:
+
+```bash
+gh issue view <number> --json state,projectItems
 ```
 
 ## Edit relationships / sub-issues

@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+enum AssetType {
+  STOCK
+  FII
+}
+
+enum RelevantDocumentStatus {
+  NEW
+  PROCESSED
+  FAILED
+}
+
+enum AiSummarySentiment {
+  POSITIVE
+  NEUTRAL
+  NEGATIVE
+}
+
+model Asset {
+  id                String             @id @default(cuid())
+  ticker            String             @unique
+  name              String
+  type              AssetType
+  exchange          String
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  portfolioAssets   PortfolioAsset[]
+  ceilingPrices     CeilingPrice[]
+  marketSnapshots   MarketSnapshot[]
+  relevantDocuments RelevantDocument[]
+}
+
+model PortfolioAsset {
+  id          String   @id @default(cuid())
+  assetId     String
+  quantity    Decimal  @db.Decimal(18, 6)
+  averageCost Decimal  @db.Decimal(18, 6)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  asset       Asset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@unique([assetId])
+}
+
+model CeilingPrice {
+  id            String   @id @default(cuid())
+  assetId       String
+  ceilingPrice  Decimal  @db.Decimal(18, 6)
+  source        String
+  referenceDate DateTime
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  asset         Asset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
+}
+
+model MarketSnapshot {
+  id             String   @id @default(cuid())
+  assetId        String
+  capturedAt     DateTime @default(now())
+  closePrice     Decimal  @db.Decimal(18, 6)
+  dailyChangePct Decimal  @db.Decimal(8, 4)
+  volume         BigInt?
+  asset          Asset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@index([assetId, capturedAt])
+}
+
+model RelevantDocument {
+  id               String                 @id @default(cuid())
+  assetId          String
+  externalSourceId String?
+  title            String
+  sourceUrl        String
+  publishedAt      DateTime
+  status           RelevantDocumentStatus @default(NEW)
+  createdAt        DateTime               @default(now())
+  updatedAt        DateTime               @updatedAt
+  asset            Asset                  @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  aiSummary        AiSummary?
+
+  @@index([assetId, publishedAt])
+  @@unique([externalSourceId])
+}
+
+model AiSummary {
+  id                 String              @id @default(cuid())
+  relevantDocumentId String              @unique
+  model              String
+  summary            String
+  sentiment          AiSummarySentiment?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  relevantDocument   RelevantDocument    @relation(fields: [relevantDocumentId], references: [id], onDelete: Cascade)
+}
+
+model IngestionCheckpoint {
+  id              String   @id @default(cuid())
+  source          String   @unique
+  cursor          String?
+  lastProcessedAt DateTime?
+  metadata        Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

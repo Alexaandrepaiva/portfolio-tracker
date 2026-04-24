@@ -14,8 +14,10 @@ This document is the operational index for agent skills used in `portfolio-track
   - Use only when requirements are underspecified and a wrong implementation risk is high.
 - `issue`
   - Use to create/edit issues and set project fields (`Status`, `Execution Lane`) on `Portfolio Tracker Kanban`.
+  - When implementation is finished, always move issue `Status` to `Done`, close issue if applicable, and verify with `gh issue view`.
 - `pr-merge`
   - Use for merge flow from current branch, with pre-merge checks and branch cleanup.
+  - After merge, sync all linked closing issues to `Done` on Kanban and verify final state.
 - `pr-review-fix`
   - Use to fetch PR review comments, triage by reviewer, apply safe fixes, and return a structured report.
 - `subagent-plan-execute`

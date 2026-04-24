@@ -64,5 +64,9 @@ if [[ -n "$LANE" ]]; then
 fi
 
 echo "ISSUE_NUMBER=$ISSUE_NUMBER"
-[[ -n "$STATUS" ]] && echo "STATUS=$STATUS"
-[[ -n "$LANE" ]] && echo "LANE=$LANE"
+if [[ -n "$STATUS" ]]; then
+  echo "STATUS=$STATUS"
+fi
+if [[ -n "$LANE" ]]; then
+  echo "LANE=$LANE"
+fi
