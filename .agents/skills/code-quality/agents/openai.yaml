@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Quality"
+  short_description: "Run code quality checks and fix issues."
+  default_prompt: "Use this skill to run the relevant code quality checks, fix the issues found, and report the validation results."

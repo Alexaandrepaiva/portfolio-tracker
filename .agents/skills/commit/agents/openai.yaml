@@ -1,0 +1,4 @@
+interface:
+  display_name: "Commit"
+  short_description: "Create a git commit using Conventional Commits after reviewing the changes."
+  default_prompt: "Use this skill to review the current changes, prepare staging if needed, generate a Conventional Commit message, and create the commit."

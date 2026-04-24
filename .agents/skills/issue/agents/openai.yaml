@@ -1,0 +1,4 @@
+interface:
+  display_name: "Issue"
+  short_description: "Create, edit, and fetch GitHub issues using the GitHub CLI."
+  default_prompt: "Use this skill to manage GitHub issues for the current repository with the GitHub CLI, validating labels and project rules before making changes, and supporting optional status, lane, milestone, and assignee handling."

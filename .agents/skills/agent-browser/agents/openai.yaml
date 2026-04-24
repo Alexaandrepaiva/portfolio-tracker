@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Browser"
+  short_description: "Automates browser interactions for web testing, form filling, screenshots, and data extraction."
+  default_prompt: "Use this skill to navigate websites, interact with pages, fill forms, capture screenshots, and validate browser flows."

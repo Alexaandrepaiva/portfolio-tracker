@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR Merge"
+  short_description: "Merge a GitHub pull request from the current branch and clean up the remote branch."
+  default_prompt: "Use this skill to verify the current branch state, merge the related GitHub pull request with the correct strategy, and clean up the remote branch."

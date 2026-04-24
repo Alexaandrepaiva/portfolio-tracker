@@ -1,0 +1,7 @@
+interface:
+  display_name: "Subagent Plan Execute"
+  short_description: "Execute an approved plan in a separate subagent thread."
+  default_prompt: >
+    Use $subagent-plan-execute to hand an approved plan to one
+    plan_executor subagent, wait for execution to finish, and return a
+    concise execution summary with validations, deviations, and blockers.

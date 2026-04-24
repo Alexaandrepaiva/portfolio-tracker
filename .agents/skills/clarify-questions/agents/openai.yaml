@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clarify Questions"
+  short_description: "Ask clarifying questions before implementation when the request is underspecified."
+  default_prompt: "Use this skill to identify missing requirements and ask only the minimum clarifying questions needed before implementation."

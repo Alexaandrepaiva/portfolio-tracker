@@ -1,0 +1,6 @@
+interface:
+  display_name: "PR Review Fix"
+  short_description: "Auto-fix PR comments"
+  default_prompt: >
+    Use $pr-review-fix to fetch PR review comments by reviewer, analyze them,
+    apply safe fixes, and output a reviewer-by-reviewer report.

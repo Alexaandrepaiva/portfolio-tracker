@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR Comment Analysis"
+  short_description: "Analyze PR review comments and suggest high-level fixes without generating code."
+  default_prompt: "Use this skill to evaluate PR review comments, judge their validity against the codebase, and suggest next steps without editing code."

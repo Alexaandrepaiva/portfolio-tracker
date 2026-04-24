@@ -1,0 +1,4 @@
+interface:
+  display_name: "Browser Test"
+  short_description: "Run app dev, Inngest, and agent-browser"
+  default_prompt: "Start the local app stack: run npm run dev, ensure Inngest is running, and open /demo-login in agent-browser."
